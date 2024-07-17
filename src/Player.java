@@ -1,55 +1,38 @@
 package src;
-
 import java.util.Random;
-
 public class Player {
     private String playerName;
     private Hand hand;
-
     public Player(String playerName) {
         this.playerName = playerName;
     }
-
-    // Method to randomly create a hand for the player
+    /**
+     手の強弱を比較する。
+     返り値 -1 : 自身が引数で指定した手より弱い
+     　　　　0 : 自身が引数で指定した手と同じ
+     　　　　1 : 自身が引数で指定した手より強い
+     */
     public void createRandomHand() {
         Random random = new Random();
-        int randomValue = random.nextInt(3); // Generates random number 0, 1, or 2
-        switch (randomValue) {
-            case 0:
-                this.hand = new Gu(); // Assuming Gu, Choki, and Pa are subclasses of Hand
-                break;
-            case 1:
-                this.hand = new Choki();
-                break;
-            case 2:
-                this.hand = new Pa();
-                break;
-            default:
-                // Handle unexpected cases, although this shouldn't happen in this scenario
-                throw new IllegalStateException("Unexpected value: " + randomValue);
+        int randomValue = random.nextInt(3);
+        if(randomValue == 0) {
+            this.hand = new Gu();
+        } else if(randomValue == 1) {
+            this.hand = new Choki();
+        } else {
+            this.hand = new Pa();
         }
     }
-
-    // Getters and setters for playerName and hand
     public String getPlayerName() {
         return playerName;
     }
-
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
-
     public Hand getHand() {
-        return hand;
+        return this.hand;
     }
-
     public void setHand(Hand hand) {
         this.hand = hand;
-    }
-
-    // Method to compare hands with another player
-    public int compareHand(Player otherPlayer) {
-        Hand otherHand = otherPlayer.getHand();
-        return this.hand.compareWith(otherHand); // Assuming Hand has a method compareWith(Hand otherHand)
     }
 }
